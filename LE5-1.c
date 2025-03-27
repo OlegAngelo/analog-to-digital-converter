@@ -28,7 +28,7 @@ int readADC(void)
     return temp;
 }
 
-int thresholds[] = {169, 340, 511, 682, 853, 1024}; 
+int thresholds[] = {170, 341, 512, 683, 854, 1025};
 int numLeds = 6;
 
 void main(void)
