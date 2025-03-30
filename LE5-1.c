@@ -47,13 +47,6 @@ void main(void)
         d_value = readADC(); // get ADC value
 
         /* setting the LEDs */
-        // if (d_value >= 0 && d_value <= 169) PORTB = 0x00; // ALL LEDs OFF
-        // if (d_value >= 170 && d_value <= 340) PORTB = 0x01; // LED1 ON
-        // if (d_value >= 341 && d_value <= 511) PORTB = 0x03; // LED1, LED2 ON
-        // if (d_value >= 512 && d_value <= 682) PORTB = 0x07; // LED1, LED2, LED3 ON
-        // if (d_value >= 683 && d_value <= 853) PORTB = 0x0F; // LED1, LED2, LED3, LED4 ON
-        // if (d_value >= 854 && d_value <= 1024) PORTB = 0x1F; // LED1, LED2, LED3, LED4, LED5 ON
-
         for (int i = 0; i < 6; i++) {
             if (d_value < thresholds[i]) {
                 PORTB = (1 << i) - 1; // Set PORTB based on number of LEDs ON
