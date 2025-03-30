@@ -18,7 +18,7 @@ int readADC(void)
 {
     int temp = 0;
     delay(1000); // delay to get the hold capacitor charged
-    GO_DONE = 1;      // start conversion
+    GO = 1;      // start conversion
 
     while (GO_DONE); // wait for conversion to finish
 
