@@ -9,9 +9,9 @@
 #pragma config WRT = OFF
 #pragma config CP = OFF
 
+int d_value = 0;
 float voltageOutput = 0;
 unsigned int wholeNum, decimalNum, tempNum;
-int d_value = 0;
 
 void delay(int cnt)
 {
@@ -22,8 +22,6 @@ void portConfig(void) {
     // configure ports B as output
     TRISB = 0x00;
     PORTB = 0x00;
-	//RB4 = 0;
-	//RB5 = 1;
 }
 
 void adcConfig(void) {
@@ -39,20 +37,6 @@ void adcConfig(void) {
     GO = 1;        // start A/D conversion (ADCON0 reg)
     GIE = 1;       // enable all unmasked interrupts (INTCON reg)
 }
-
-/*
-unsigned char configDisplayValue(unsigned char whole, unsigned char decimal)
-{
-    // (upper nibble = whole, lower nibble = decimal)
-    return ((whole << 4) | (decimal & 0x0F)); 
-}
-*/
-unsigned char configDisplayValue(unsigned char num)
-{
-    // (upper nibble = whole, lower nibble = decimal)
-    return num & 0x0F; 
-}
-
 
 void interrupt ISR(void)
 {
@@ -73,19 +57,18 @@ void interrupt ISR(void)
 		wholeNum = (int)voltageOutput;
 		decimalNum = (int)((voltageOutput - wholeNum) * 10);
 		
-		delay(100);
+		delay(150);
 		PORTB = wholeNum;
 
 		RB4 = 0;
-
 		RB5=1;
-		delay(100);
+
+		delay(150);
 		PORTB = decimalNum;
 
 		RB5 = 0;
 		RB4= 1;
 
-       // voltageOutput = configDisplayValue(tempNum);
     }
 
     delay(250); // delay to get the hold capacitor charged
@@ -100,10 +83,5 @@ void main(void)
 
     for(;;)
     {
-        // always display output here
-        //PORTB = voltageOutput;
-		//PORTB = 0x0F;
-
-		
     }
 }
